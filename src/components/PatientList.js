@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Patient from '../components/Patient';
+import Patient from './Patient';
 
 const PatientList = (props) => (
     <div>
@@ -8,7 +8,7 @@ const PatientList = (props) => (
         <ul>
             {props.patients.map(patient => {
                 return (
-                    <li key={patient.name} title={'Hi'}>
+                    <li key={patient.patientId}>
                         <Patient {...patient} />
                     </li>
                 );

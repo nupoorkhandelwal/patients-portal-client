@@ -9,6 +9,7 @@ export const addPatient = (patientDetails = {
     name: '',
     surname: '',
     city: '',
+    dob: ''
 
 }) => {
     return (dispatch) => {
@@ -16,6 +17,9 @@ export const addPatient = (patientDetails = {
             name: patientDetails.name,
             surname: patientDetails.surname,
             city: patientDetails.city,
+            dob : patientDetails.dob
+
+
 
         };
 
@@ -25,15 +29,16 @@ export const addPatient = (patientDetails = {
     };
 };
 
-const _removePatient = ({ id } = {}) => ({
+const _removePatient = ({ patientId } = {}) => ({
     type: 'REMOVE_PATIENT',
-    id
+    patientId
 });
 
-export const removePatient = ({ id } = {}) => {
+export const removePatient = ({ patientId } = {}) => {
     return (dispatch) => {
-        return axios.delete(`patients/${id}`).then(() => {
-            dispatch(_removePatient({ id }));
+        console.log('id value is ' + patientId);
+        return axios.delete(`patients/${patientId}`).then(() => {
+            dispatch(_removePatient({ patientId }));
         })
     }
 };
@@ -59,19 +64,19 @@ const _getPatients = (patients) => ({
 
 export const getPatients = () => {
     var config = {
-        headers: {"Access-Control-Allow-Origin": "*"}
+        headers: {'Content-Type': 'application/json;charset=UTF-8',
+            "Access-Control-Allow-Origin": true}
     };
 
     return (dispatch) => {
 
-        return axios.get('/patients',config).then(result => {
-
-            console.log(JSON.stringify(result.data,null,4));
+        return axios.get('/patients', config)
+            .then((result) => {
             const patients = [];
 
-            result.data.getJSON("_embedded.patients").forEach(item => {
+            result.data._embedded.patients.forEach(item => {
                 patients.push(item);
-            });
+            })
 
             dispatch(_getPatients(patients));
         });

@@ -6,11 +6,9 @@ import { Provider} from 'react-redux';
 import {getPatients} from "./actions/patient";
 import * as ReactDOM from "react-dom";
 
-
 const store = getAppStore();
 
 const template = (
-
       <Provider store={store}>
         <AppRouter />
       </Provider>
@@ -18,9 +16,10 @@ const template = (
 
 const App =() =>(
     store.dispatch(getPatients()).then(() => {
-        ReactDOM.render(template, document.getElementById('app'));
+        ReactDOM.render(template, document.getElementById('root'));
     })
 );
+
 
 export default App
 

@@ -3,15 +3,16 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { removePatient } from '../actions/patient';
 
-const Patient = ({ id, name, surname, city, dob,dispatch }) => (
+const Patient = ({ patientId, name, surname, city, dob,dispatch }) => (
     <div>
-        <Link to={`/patients/${id}`}>
-            <h4>{name} ({surname})</h4>
+        <Link to={`http://localhost:8585/patients_portal/patients/${patientId}`}>
+            <h4> {name} {surname}</h4>
         </Link>
         <p>City: {city}</p>
-
-        <button onClick={() => {
-            dispatch(removePatient({ id }));
+        <p>Date Of Birth: {dob}</p>
+         <button onClick={() => {
+             console.log({patientId});
+            dispatch(removePatient({patientId}));
         }}>Remove</button>
     </div>
 );

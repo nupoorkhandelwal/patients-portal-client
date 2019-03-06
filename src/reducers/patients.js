@@ -8,10 +8,10 @@ export default (state = patientsReducerDefaultState, action) => {
                 action.patient
             ];
         case 'REMOVE_PATIENT':
-            return state.filter(({ id }) => id !== action.id);
+            return state.filter(({ patientId }) => patientId !== action.patientId);
         case 'EDIT_PATIENT':
             return state.map((patient) => {
-                if (patient.id === action.id) {
+                if (patient.patientId === action.patientId) {
                     return {
                         ...patient,
                         ...action.updates
@@ -21,7 +21,7 @@ export default (state = patientsReducerDefaultState, action) => {
                 }
             });
         case 'GET_PATIENT':
-            return action.patient;
+            return action.patients;
         default:
             return state;
     }
